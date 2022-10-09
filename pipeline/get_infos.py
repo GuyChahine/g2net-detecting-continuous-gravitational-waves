@@ -45,9 +45,9 @@ def main():
                     "l1_timestamp_max": [d['L1_Timestamp'].max()],
                     "l1_timestamp_mean": [d['L1_Timestamp'].mean()],
                     
-                    "frequency": [d['Frequency'].min()],
-                    "frequency": [d['Frequency'].max()],
-                    "frequency": [d['Frequency'].mean()],
+                    "frequency_min": [d['Frequency'].min()],
+                    "frequency_max": [d['Frequency'].max()],
+                    "frequency_mean": [d['Frequency'].mean()],
                 })
             ])
     infos.set_index("id").to_csv("data/infos/train_infos.csv")
