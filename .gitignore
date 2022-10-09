@@ -1,3 +1,4 @@
 data
 notebook
 venv
+__pycache__
