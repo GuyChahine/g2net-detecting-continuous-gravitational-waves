@@ -35,9 +35,9 @@ def main():
             
         pd.DataFrame(dict(
             h1_min_melspec=[min(h1_min_melspec)],
-            h1_man_melspec=[max(h1_max_melspec)],
+            h1_max_melspec=[max(h1_max_melspec)],
             l1_min_melspec=[min(l1_min_melspec)],
-            l1_man_melspec=[max(l1_max_melspec)],
+            l1_max_melspec=[max(l1_max_melspec)],
         )).to_csv("data/infos/min_max_melspectrogram.csv")
 
 if __name__ == "__main__":
