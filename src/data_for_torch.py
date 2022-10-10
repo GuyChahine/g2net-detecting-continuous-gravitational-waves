@@ -1,8 +1,8 @@
 import torch
 import pandas as pd
 
-from utils import get_file_names, read_hdf5, find_target
-from data_preparation import MelSpectrogram_v1
+from src.utils import get_file_names, read_hdf5, find_target
+from src.data_preparation import MelSpectrogram_v1
 
 class G2NETDataset(torch.utils.data.Dataset):
     
@@ -27,7 +27,7 @@ class G2NETDataset(torch.utils.data.Dataset):
         h1_timestamp,
         l1_sfts,
         l1_timestamp,
-        frenquency) = read_hdf5(self.file_names[idx])
+        frenquency) = read_hdf5(self.file_names[idx]).values()
         
         target = find_target(name, self.labels)
         
