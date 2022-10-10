@@ -4,8 +4,11 @@ import pandas as pd
 
 class DataCleaning():
     
-    def _min_max_scaler(self, arr: np.array, min: float, max: float):
+    def _min_max_scaler(self, arr: np.ndarray, min: float, max: float):
         return (arr - min) / (max-min)
+
+    def _resizer(self, arr: np.ndarray, min: float):
+        return np.delete(arr, slice(min, arr.shape[1]), axis=1)
 
 class DataTransformation():
         
@@ -25,8 +28,11 @@ class MelSpectrogram_v1(DataTransformation, DataCleaning):
         return self._melspectrogram(magnitude)
     
     def fit(self, h1_sfts, l1_sfts):
-        sg_h1 = self._get_melspectrogram(h1_sfts)
-        sg_l1 = self._get_melspectrogram(l1_sfts)
+        sg_h1 = self._resizer(h1_sfts, int(self.min_max_melspectrogram.h1_shape_melspec))
+        sg_l1 = self._resizer(l1_sfts, int(self.min_max_melspectrogram.l1_shape_melspec))
+        
+        sg_h1 = self._get_melspectrogram(sg_h1)
+        sg_l1 = self._get_melspectrogram(sg_l1)
         
         sg_h1 = self._min_max_scaler(
             sg_h1,
