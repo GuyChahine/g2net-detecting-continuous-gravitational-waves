@@ -1,6 +1,7 @@
 import os
 import h5py
 import numpy as np
+import pandas as pd
 
 def get_file_names(root: str):
     for _, _, files in os.walk(root):
@@ -16,3 +17,6 @@ def read_hdf5(path: str):
         "L1_Timestamp": np.array(file[list(file.keys())[0]]["L1"]["timestamps_GPS"]),
         "Frequency": np.array(file[list(file.keys())[0]]["frequency_Hz"]),
     }
+    
+def find_target(name: str, labels: pd.DataFrame):
+    return int(labels[labels.id == name].target)
