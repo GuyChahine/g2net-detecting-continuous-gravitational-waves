@@ -35,3 +35,8 @@ class G2NETDataset(torch.utils.data.Dataset):
         
         return torch.Tensor(sg_h1), torch.Tensor(sg_l1), torch.Tensor([target])
         
+def dataset_split(dataset: torch.utils.data.Dataset, valid_size: float):
+    train_length = int(len(dataset) * (1 - valid_size))
+    valid_length = int(len(dataset) * valid_size)
+    return torch.utils.data.random_split(dataset, [train_length, valid_length])
+
