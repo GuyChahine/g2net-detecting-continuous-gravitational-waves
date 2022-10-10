@@ -1,7 +1,10 @@
 import sys
 sys.path.insert(0, "\\".join(__file__.split("\\")[:__file__.split("\\").index("g2net-detecting-continuous-gravitational-waves")+1]))
 
-from src.data_from_hdf5 import *
+import pandas as pd
+
+from utils import get_file_names
+from classic_data import batch_generator
 
 def main():
     BATCH_SIZE = 128
