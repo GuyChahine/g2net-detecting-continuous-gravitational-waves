@@ -9,6 +9,9 @@ class DataCleaning():
 
     def _resizer(self, arr: np.ndarray, min: float):
         return np.delete(arr, slice(min, arr.shape[1]), axis=1)
+    
+    def _reshaper(self, arr: np.ndarray):
+        return arr.reshape((1, 128, -1))
 
 class DataTransformation():
         
@@ -44,6 +47,9 @@ class MelSpectrogram_v1(DataTransformation, DataCleaning):
             float(self.min_max_melspectrogram.l1_min_melspec),
             float(self.min_max_melspectrogram.l1_max_melspec)
         )
+        
+        sg_h1 = self._reshaper(sg_h1)
+        sg_l1 = self._reshaper(sg_l1)
         
         return sg_h1, sg_l1
         
