@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from utils import read_hdf5
+from src.utils import read_hdf5
 
 def batch_generator(batch_size: int, file_names: list, labels: pd.DataFrame):
     batch_names = np.split(file_names, np.arange(batch_size, file_names.size, batch_size))
