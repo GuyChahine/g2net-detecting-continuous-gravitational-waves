@@ -19,4 +19,4 @@ def read_hdf5(path: str):
     }
     
 def find_target(name: str, labels: pd.DataFrame):
-    return int(labels[labels.id == name].target)
+    return float(labels[labels.id == name].target)
