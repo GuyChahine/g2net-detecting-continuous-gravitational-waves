@@ -24,12 +24,11 @@ def train(
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-        del x1, x2, y, output
         #torch.cuda.empty_cache()
         #torch.cuda.synchronize()
         if (i_batch+1) % log_interval_value == 0\
-            or i_batch+1 == 1\
             or i_batch+1 == len(train_loader):
+            #or i_batch+1 == 1\
             eval(
                 model,
                 device,
