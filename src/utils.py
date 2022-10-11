@@ -26,3 +26,14 @@ def dataset_split(dataset: torch.utils.data.Dataset, valid_size: float):
     train_length = int(len(dataset) * (1 - valid_size))
     valid_length = int(len(dataset) * valid_size)
     return torch.utils.data.random_split(dataset, [train_length, valid_length])
+
+class DataCleaning():
+    
+    def _min_max_scaler(self, arr: np.ndarray, min: float, max: float):
+        return (arr - min) / (max-min)
+
+    def _resizer(self, arr: np.ndarray, min_shape: int):
+        return np.delete(arr, slice(min_shape, arr.shape[1]), axis=1)
+    
+    def _reshaper(self, arr: np.ndarray, new_shape: tuple):
+        return arr.reshape(new_shape)
