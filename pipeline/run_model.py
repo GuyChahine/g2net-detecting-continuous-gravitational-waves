@@ -11,7 +11,7 @@ sys.path.insert(0, "\\".join(__file__.split("\\")[:__file__.split("\\").index("g
 
 from src.mel_spectrogram import MelSpectrogram_v1
 from src.utils import dataset_split
-from model.model_architecture import NeuralNet_v1
+from model.model_mel_spectrogram import NeuralNet_v1
 from model.step_epoch import train
 
 def main():
