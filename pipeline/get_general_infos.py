@@ -3,8 +3,8 @@ sys.path.insert(0, "\\".join(__file__.split("\\")[:__file__.split("\\").index("g
 
 import pandas as pd
 
-from utils import get_file_names
-from classic_data import batch_generator
+from src.utils import get_file_names
+from src.classic_data import batch_generator
 
 def main():
     BATCH_SIZE = 128
@@ -32,6 +32,9 @@ def main():
                     "h1_sfts_imag_max": [d['H1_SFTs'].imag.max()],
                     "h1_sfts_imag_mean": [d['H1_SFTs'].imag.mean()],
                     
+                    "h1_sfts_shape0": [d['H1_SFTs'].shape[0]],
+                    "h1_sfts_shape1": [d['H1_SFTs'].shape[1]],
+                    
                     "h1_timestamp_min": [d['H1_Timestamp'].min()],
                     "h1_timestamp_max": [d['H1_Timestamp'].max()],
                     "h1_timestamp_mean": [d['H1_Timestamp'].mean()],
@@ -44,6 +47,9 @@ def main():
                     "l1_sfts_imag_max": [d['L1_SFTs'].imag.max()],
                     "l1_sfts_imag_mean": [d['L1_SFTs'].imag.mean()],
                     
+                    "l1_sfts_shape0": [d['L1_SFTs'].shape[0]],
+                    "l1_sfts_shape1": [d['L1_SFTs'].shape[1]],
+                    
                     "l1_timestamp_min": [d['L1_Timestamp'].min()],
                     "l1_timestamp_max": [d['L1_Timestamp'].max()],
                     "l1_timestamp_mean": [d['L1_Timestamp'].mean()],
@@ -53,7 +59,7 @@ def main():
                     "frequency_mean": [d['Frequency'].mean()],
                 })
             ])
-    infos.set_index("id").to_csv("data/infos/train_infos.csv")
+    infos.set_index("id").to_csv("data/infos/min_max_mean_shape.csv")
 
 
 if __name__ == "__main__":
