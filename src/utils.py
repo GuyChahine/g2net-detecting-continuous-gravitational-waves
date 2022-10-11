@@ -2,6 +2,7 @@ import os
 import h5py
 import numpy as np
 import pandas as pd
+import torch
 
 def get_file_names(root: str):
     for _, _, files in os.walk(root):
@@ -20,3 +21,8 @@ def read_hdf5(path: str):
     
 def find_target(name: str, labels: pd.DataFrame):
     return float(labels[labels.id == name].target)
+
+def dataset_split(dataset: torch.utils.data.Dataset, valid_size: float):
+    train_length = int(len(dataset) * (1 - valid_size))
+    valid_length = int(len(dataset) * valid_size)
+    return torch.utils.data.random_split(dataset, [train_length, valid_length])

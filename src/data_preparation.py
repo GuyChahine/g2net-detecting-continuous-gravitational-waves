@@ -5,11 +5,6 @@ import pandas as pd
 
 from src.utils import get_file_names, read_hdf5, find_target
 
-def dataset_split(dataset: torch.utils.data.Dataset, valid_size: float):
-    train_length = int(len(dataset) * (1 - valid_size))
-    valid_length = int(len(dataset) * valid_size)
-    return torch.utils.data.random_split(dataset, [train_length, valid_length])
-
 class DataCleaning():
     
     def _min_max_scaler(self, arr: np.ndarray, min: float, max: float):
