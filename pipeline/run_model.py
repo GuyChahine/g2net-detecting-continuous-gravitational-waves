@@ -9,7 +9,8 @@ import wandb
 import sys
 sys.path.insert(0, "\\".join(__file__.split("\\")[:__file__.split("\\").index("g2net-detecting-continuous-gravitational-waves")+1]))
 
-from src.data_preparation import MelSpectrogram_v1, dataset_split
+from src.data_preparation import MelSpectrogram_v1
+from src.utils import dataset_split
 from model.model_architecture import NeuralNet_v1
 from model.step_epoch import train
 
