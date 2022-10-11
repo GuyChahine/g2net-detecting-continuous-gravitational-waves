@@ -53,3 +53,10 @@ class MelSpectrogram_v1(DataTransformation, DataCleaning):
         
         return sg_h1, sg_l1
         
+class ShotTimeFourierTransform_v1():
+    
+    def __init__(self):
+        pass
+    
+    def fit(self):
+        pass
