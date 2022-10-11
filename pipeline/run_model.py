@@ -52,7 +52,7 @@ def main():
 if __name__ == "__main__":
     DEVICE = torch.device("cuda")
     REPORTS = False
-    LOG_INTERVAL = 0.1
+    LOG_INTERVAL = 1
     
     CONFIG = {
         "nb_epoch": 10,
