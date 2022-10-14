@@ -53,7 +53,7 @@ class NeuralNet_v1(torch.nn.Module):
         
     def forward(self, x1, x2):
         x1 = self.feature1(x1)
-        x2 = self.feature1(x2)
+        x2 = self.feature2(x2)
         
         x = torch.cat([x1, x2], dim=1)
         
