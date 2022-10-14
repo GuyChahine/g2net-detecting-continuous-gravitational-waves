@@ -16,11 +16,11 @@ def train(
     log_interval_value = int(log_interval * len(train_loader))\
         if int(log_interval * len(train_loader)) else 1
     
-    for i_batch, (x1, x2, y) in enumerate(train_loader):
+    for i_batch, (data) in enumerate(train_loader):
         model.train()
-        x1, x2, y = x1.to(device), x2.to(device), y.to(device)
-        output = model(x1, x2)
-        loss = loss_function(output, y)
+        data = *[x.to(device) for x in data[:-1]], data[-1].to(device)
+        output = model(*data[:-1])
+        loss = loss_function(output, data[-1])
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
@@ -40,7 +40,14 @@ def train(
                 epoch_nb_epoch,
             )
         else:
-            print(f"{' '*5}Batch: {i_batch+1}/{len(train_loader)} |")
+            print("{}Batch: {}/{} | Train Batch (Accuracy/Loss): {:.4f}/{:.4f}{}".format(
+                ' '*5,
+                i_batch+1,
+                len(train_loader),
+                torch.mean((output == data[-1]).float()).item(),
+                loss_function(output, data[-1], reduction='mean').item(),
+                ' '*10
+            ))
 
 def get_model_info(
     model: torch.nn.Module,
@@ -49,18 +56,18 @@ def get_model_info(
     loss_function: torch.nn.functional,
 ):
     accuracy, loss = [], []
-    for i_batch, (x1, x2, y) in enumerate(loader):
-        print(f"{' '*5}RUNNING EVALUATION: {i_batch}/{len(loader)}{' '*10}", end="\r")
-        x1, x2, y = x1.to(device), x2.to(device), y.to(device)
-        output = model(x1, x2)
+    for i_batch, (data) in enumerate(loader):
+        print(f"{' '*5}RUNNING EVALUATION: {i_batch}/{len(loader)}{' '*20}", end="\r")
+        data = *[x.to(device) for x in data[:-1]], data[-1].to(device)
+        output = model(*data[:-1])
         
         accuracy.append(
             torch.mean(
-                (output == y).float()
+                (output == data[-1]).float()
             ).item()
         )
         loss.append(
-            loss_function(output, y, reduction='mean').item()
+            loss_function(output, data[-1], reduction='mean').item()
         )
         
     return sum(accuracy)/float(len(accuracy)), sum(loss)/float(len(loss))
