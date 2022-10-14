@@ -37,3 +37,6 @@ class DataCleaning():
     
     def _reshaper(self, arr: np.ndarray, new_shape: tuple):
         return arr.reshape(new_shape)
+    
+    def _concater(self, arrs: list, axis: int):
+        return np.concatenate(arrs, axis=axis)
