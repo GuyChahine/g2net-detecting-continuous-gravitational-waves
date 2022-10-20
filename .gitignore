@@ -1,4 +1,5 @@
 data
 notebook
 venv
+plots
 __pycache__
