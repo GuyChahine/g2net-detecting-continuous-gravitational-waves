@@ -130,9 +130,11 @@ class C2DNN_v3(torch.nn.Module):
     def __init__(self):
         super(C2DNN_v3, self).__init__()
         
-        self.conv1 = nn.Conv2d(1, 8, 5, 2)
-        self.conv2 = nn.Conv2d(8, 16, 5, 2)
-        self.conv3 = nn.Conv2d(16, 32, 5, 2)
+        self.conv1 = nn.Conv2d(1, 32, 3, 1, 'same')
+        self.conv2 = nn.Conv2d(32, 64, 3, 1, 'same')
+        self.conv3 = nn.Conv2d(64, 32, 3, 1, 'same')
+        self.conv4 = nn.Conv2d(32, 16, 3, 1, 'same')
+        self.conv5 = nn.Conv2d(16, 8, 3, 1, 'same')
         
         self.maxpool2d = nn.MaxPool2d(3)
         self.relu = nn.ReLU()
@@ -147,6 +149,14 @@ class C2DNN_v3(torch.nn.Module):
         x = self.maxpool2d(x)
         
         x = self.conv3(x)
+        x = self.relu(x)
+        x = self.maxpool2d(x)
+        
+        x = self.conv4(x)
+        x = self.relu(x)
+        x = self.maxpool2d(x)
+        
+        x = self.conv5(x)
         x = self.relu(x)
         x = self.maxpool2d(x)
         
@@ -167,9 +177,6 @@ class NeuralNet_v3(torch.nn.Module):
         self.fc1 = nn.LazyLinear(256)
         self.fc2 = nn.Linear(256, 1)
         
-        self.bn1 = nn.LazyBatchNorm1d()
-        self.bn2 = nn.BatchNorm1d(256)
-        
         self.relu = nn.ReLU()
         self.softmax = nn.Softmax(dim=1)
     
@@ -181,10 +188,8 @@ class NeuralNet_v3(torch.nn.Module):
         
         x = torch.cat([x1, x2, x3, x4], dim=1)
         
-        x = self.bn1(x)
         x = self.fc1(x)
         x = self.relu(x)
-        x = self.bn2(x)
         x = self.fc2(x)
         x = self.softmax(x)
         
@@ -199,4 +204,8 @@ class NeuralNet_v3(torch.nn.Module):
 ]
     
 model = NeuralNet_v3()
-model(*x)"""
+model(*x)
+
+for name, weight in dict(model.named_parameters()).items():
+    print(f"{name} {weight.numel():,}")
+print(f"\n{sum([p.numel() for p in model.parameters()]):,}")"""
