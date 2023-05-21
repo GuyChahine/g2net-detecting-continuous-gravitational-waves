@@ -58,7 +58,7 @@ if __name__ == "__main__":
     CONFIG = {
         "nb_epoch": 50,
         "valid_size": 0,
-        "batch_size": 128,
+        "batch_size": 16,
         "optimizer": "Adam(model.parameters())",
         "scheduler": None,
         "loss_function": binary_cross_entropy,
